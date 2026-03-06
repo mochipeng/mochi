@@ -324,9 +324,66 @@
     <ul>
       <li>Subscription access to a library of homework and test Q&amp;A — base plan ~$15/month</li>
       <li><span class="stat-hl">82%</span> of revenue from Chegg Services; 18% from textbook rental/sales ("Required Materials")</li>
-      <li>Historical revenue: $149M (2010) → $644M (2020) — decade of steady growth</li>
       <li>Outperformed $SPY by <span class="stat-hl">110%</span> since onset of pandemic</li>
     </ul>
+
+    <!-- Revenue bar chart -->
+    <div style="margin:16px 0 4px">
+      <div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;color:#ffb3d9;margin-bottom:10px">Historical Revenue (USD millions)</div>
+      <div style="display:flex;align-items:flex-end;gap:5px;height:80px">
+        <!-- bars normalized to max 644 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ffcde4;border-radius:1px 1px 0 0" title="$149M" data-h="18"></div>
+          <div style="font-size:7px;color:#ccc">2010</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ffcde4;border-radius:1px 1px 0 0" title="$172M" data-h="21"></div>
+          <div style="font-size:7px;color:#ccc">2011</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ffcde4;border-radius:1px 1px 0 0" title="$213M" data-h="26"></div>
+          <div style="font-size:7px;color:#ccc">2012</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ffcde4;border-radius:1px 1px 0 0" title="$256M" data-h="32"></div>
+          <div style="font-size:7px;color:#ccc">2013</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ffb3d9;border-radius:1px 1px 0 0" title="$305M" data-h="38"></div>
+          <div style="font-size:7px;color:#ccc">2014</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ffb3d9;border-radius:1px 1px 0 0" title="$301M" data-h="37"></div>
+          <div style="font-size:7px;color:#ccc">2015</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ffb3d9;border-radius:1px 1px 0 0" title="$254M" data-h="32"></div>
+          <div style="font-size:7px;color:#ccc">2016</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ff99c8;border-radius:1px 1px 0 0" title="$255M" data-h="32"></div>
+          <div style="font-size:7px;color:#ccc">2017</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ff80be;border-radius:1px 1px 0 0" title="$321M" data-h="40"></div>
+          <div style="font-size:7px;color:#ccc">2018</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ff59a6;border-radius:1px 1px 0 0" title="$411M" data-h="51"></div>
+          <div style="font-size:7px;color:#ccc">2019</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+          <div style="width:100%;background:#ff1bad;border-radius:1px 1px 0 0" title="$644M" data-h="80"></div>
+          <div style="font-size:7px;color:#ff59a6;font-weight:bold">2020</div>
+        </div>
+      </div>
+      <div style="font-size:8px;color:#ddd;margin-top:6px">↑ pandemic year · $149M → $644M</div>
+    </div>
+    <script>
+      document.querySelectorAll('[data-h]').forEach(el => {
+        el.style.height = el.dataset.h + 'px';
+      });
+    </script>
 
     <h3>The Cheating Problem</h3>
     <p>Chegg is advertised as a study tool — but the data tells a different story:</p>
