@@ -3,606 +3,390 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Case Study: Spotify "In Rotation" — Victoria Peng, UX Designer</title>
-  <meta name="description" content="How we designed a low-friction feature for artists to share their authentic listening habits without curation burden.">
+  <title>Case Study: Spotify "In Rotation" — Victoria Peng</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #f5f5f5; }
-    ::-webkit-scrollbar-thumb { background: #1DB954; border-radius: 4px; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #ffe8f4; }
+    ::-webkit-scrollbar-thumb { background: #ff59a6; border-radius: 3px; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
-      color: #2a2a2a;
-      background: #fafafa;
+      font-family: Verdana, sans-serif;
+      font-size: 10px;
+      background: #fff;
+      color: #444;
+      cursor: crosshair;
+      line-height: 1.8;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
+    a {
+      color: #ff1bad;
+      text-decoration: underline dotted;
+    }
+    a:hover { font-weight: bold; letter-spacing: 0.5px; }
+
+    #container {
+      max-width: 560px;
+      margin: 24px auto;
       padding: 0 24px;
     }
 
-    /* Navigation */
-    nav {
-      background: #fff;
-      border-bottom: 1px solid #e0e0e0;
-      padding: 16px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    nav a {
-      color: #2a2a2a;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    nav a:hover {
-      color: #1DB954;
-    }
-
-    /* Header */
-    .case-header {
-      padding: 60px 0;
+    header {
       text-align: center;
-      border-bottom: 3px solid #1ed760;
-      margin-bottom: 60px;
+      border-bottom: 1px dotted #ff99c8;
+      padding-bottom: 18px;
+      margin-bottom: 28px;
     }
 
-    .case-header h1 {
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      line-height: 1.2;
-    }
-
-    .case-header .subtitle {
+    h1 {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
       font-size: 18px;
-      color: #666;
-      margin-bottom: 24px;
+      font-weight: 400;
+      letter-spacing: -1px;
+      color: #ff59a6;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 9px;
+      color: #bbb;
+      margin-bottom: 12px;
     }
 
     .metadata {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-
-    .meta-item {
-      font-size: 13px;
-    }
-
-    .meta-label {
+      font-size: 9px;
       color: #999;
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
+    }
+
+    .metadata-item {
       display: block;
-      margin-bottom: 4px;
+      margin-top: 4px;
     }
 
-    .meta-value {
-      color: #2a2a2a;
+    .metadata-label {
       font-weight: 600;
+      color: #ff59a6;
     }
 
-    /* Content */
-    .content {
-      background: #fff;
-      border-radius: 8px;
-      padding: 60px;
-      margin-bottom: 40px;
+    .nav {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dotted #ffcde4;
     }
+
+    .nav a {
+      color: #ff59a6;
+      text-decoration: none;
+      margin-right: 16px;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav a:hover {
+      text-decoration: underline dotted;
+      font-weight: bold;
+    }
+
+    section {
+      margin-bottom: 28px;
+      border-bottom: 1px dotted #ffcde4;
+      padding-bottom: 22px;
+    }
+    section:last-of-type { border-bottom: none; }
 
     h2 {
-      font-size: 32px;
-      margin-top: 60px;
-      margin-bottom: 24px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid #f0f0f0;
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: #ff59a6;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-bottom: 12px;
+      margin-top: 20px;
     }
 
-    h2:first-child {
+    h2:first-of-type {
       margin-top: 0;
     }
 
     h3 {
-      font-size: 22px;
-      margin-top: 40px;
-      margin-bottom: 16px;
-      color: #1DB954;
-    }
-
-    h4 {
-      font-size: 16px;
-      margin-top: 28px;
-      margin-bottom: 12px;
-      font-weight: 700;
+      font-size: 10px;
+      font-weight: 600;
+      color: #ff1bad;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     p {
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       line-height: 1.8;
     }
 
     ul, ol {
-      margin-left: 24px;
-      margin-bottom: 16px;
-    }
-
-    li {
+      margin-left: 20px;
       margin-bottom: 8px;
     }
 
-    /* Highlights */
-    .finding {
-      background: #f0fff4;
-      border-left: 4px solid #1ed760;
-      padding: 16px 20px;
-      margin: 24px 0;
-      border-radius: 4px;
+    li {
+      margin-bottom: 4px;
+      font-size: 10px;
     }
 
-    .finding strong {
-      color: #1DB954;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 9px;
+    }
+
+    th {
+      background: #fff5fb;
+      padding: 8px;
+      text-align: left;
+      font-weight: 600;
+      color: #ff59a6;
+      border: 1px dotted #ff99c8;
+    }
+
+    td {
+      padding: 8px;
+      border: 1px dotted #ffcde4;
     }
 
     blockquote {
       font-style: italic;
-      color: #666;
-      border-left: 4px solid #ddd;
-      padding-left: 20px;
-      margin: 24px 0;
-      font-size: 15px;
-    }
-
-    /* Tables */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 24px 0;
-      font-size: 14px;
-    }
-
-    th {
-      background: #f5f5f5;
-      padding: 12px;
-      text-align: left;
-      font-weight: 700;
-      border-bottom: 2px solid #e0e0e0;
-    }
-
-    td {
-      padding: 12px;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    tr:hover {
-      background: #fafafa;
-    }
-
-    /* Links & CTAs */
-    a {
-      color: #1DB954;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .cta-group {
-      display: flex;
-      gap: 16px;
-      margin: 40px 0;
-      flex-wrap: wrap;
-    }
-
-    .cta-btn {
-      display: inline-block;
-      padding: 14px 28px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.2s;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    .cta-btn-primary {
-      background: #1ed760;
-      color: #000;
-    }
-
-    .cta-btn-primary:hover {
-      background: #1DB954;
-      transform: translateY(-2px);
-    }
-
-    .cta-btn-secondary {
-      background: #f0f0f0;
-      color: #2a2a2a;
-    }
-
-    .cta-btn-secondary:hover {
-      background: #e0e0e0;
-    }
-
-    /* Code/Boxes */
-    .code-block {
-      background: #1a1a1a;
-      color: #fff;
-      padding: 20px;
-      border-radius: 6px;
-      overflow-x: auto;
-      margin: 20px 0;
-      font-family: 'Courier New', monospace;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .tldr {
-      background: linear-gradient(135deg, #1ed760, #1DB954);
-      color: #fff;
-      padding: 28px;
-      border-radius: 8px;
-      margin: 40px 0;
-      font-size: 16px;
-    }
-
-    .tldr h3 {
-      color: #fff;
-      margin-top: 0;
-    }
-
-    /* Prototype Link */
-    .prototype-cta {
-      background: #fff3cd;
-      border: 2px solid #ffc107;
-      padding: 24px;
-      border-radius: 8px;
-      margin: 40px 0;
-      text-align: center;
-    }
-
-    .prototype-cta h4 {
-      margin-top: 0;
-      color: #856404;
-    }
-
-    /* Footer */
-    .case-footer {
-      padding: 40px 0;
-      border-top: 1px solid #e0e0e0;
-      margin-top: 60px;
-      text-align: center;
       color: #999;
-      font-size: 13px;
+      border-left: 2px solid #ff99c8;
+      padding-left: 12px;
+      margin: 12px 0;
+      font-size: 9px;
     }
 
-    .back-link {
+    .finding {
+      background: #fff5fb;
+      border: 1px dotted #ff99c8;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 9px;
+    }
+
+    .prototype-link {
+      background: #fff5fb;
+      border: 1px dotted #ff99c8;
+      padding: 16px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .prototype-link a {
       display: inline-block;
-      margin-bottom: 40px;
-      padding: 8px 0;
+      background: #ff59a6;
+      color: #fff;
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 8px;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .content {
-        padding: 32px 24px;
-      }
-
-      .case-header {
-        padding: 40px 0;
-      }
-
-      .case-header h1 {
-        font-size: 32px;
-      }
-
-      .metadata {
-        gap: 20px;
-      }
-
-      table {
-        font-size: 12px;
-      }
-
-      th, td {
-        padding: 8px;
-      }
+    .prototype-link a:hover {
+      background: #ff1bad;
+      font-weight: 600;
+      letter-spacing: 1px;
     }
-  </style>
+
+    footer {
+      text-align: center;
+      font-size: 9px;
+      color: #ffb3d9;
+      padding: 20px 0 32px;
+      letter-spacing: 1px;
+    }
 </head>
 <body>
-  <nav>
-    <div class="container">
-      <a href="/">← Back to Portfolio</a>
+<div id="container">
+  <header>
+    <h1>Case Study: Spotify "In Rotation"</h1>
+    <div class="subtitle">Designing authentic artist taste signals without curation burden</div>
+    <div class="metadata">
+      <div class="metadata-item"><span class="metadata-label">Role:</span> UX Designer + UX Writer</div>
+      <div class="metadata-item"><span class="metadata-label">Timeline:</span> 3-Day Sprint</div>
+      <div class="metadata-item"><span class="metadata-label">Methods:</span> User Research, Iteration, Prototyping</div>
     </div>
-  </nav>
-
-  <div class="container">
-    <div class="case-header">
-      <h1>Spotify "In Rotation"</h1>
-      <p class="subtitle">Designing authentic artist taste signals without curation burden</p>
-      <div class="metadata">
-        <div class="meta-item">
-          <span class="meta-label">Role</span>
-          <span class="meta-value">UX Designer + UX Writer</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Timeline</span>
-          <span class="meta-value">3-Day Sprint</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Methods</span>
-          <span class="meta-value">Research, Iteration, Prototyping</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Skills</span>
-          <span class="meta-value">UX Research, UX Writing, Interaction Design</span>
-        </div>
-      </div>
+    <div class="nav">
+      <a href="/#writing">back to portfolio</a>
     </div>
+  </header>
 
-    <div class="content">
-      <h2>Overview</h2>
-      <p><strong>The Problem:</strong> Artists want to authentically share what they're listening to, but existing playlist curation tools require ongoing maintenance effort that most artists won't sustain.</p>
-      <p><strong>The Insight:</strong> Remove the work. Make it automatic, optional, and under their control.</p>
-      <p><strong>The Solution:</strong> "In Rotation"—a lightweight, algorithmically-generated weekly snapshot of what artists actually listen to, with minimal friction and maximum autonomy.</p>
+  <main>
+    <section>
+      <h2>Problem</h2>
+      <p>Artists want to authentically share what they're listening to, but existing playlist curation tools require ongoing maintenance effort that most artists won't sustain.</p>
+      <p><strong>Insight:</strong> Remove the work. Make it automatic, optional, and under their control.</p>
+      <p><strong>Solution:</strong> "In Rotation"—a lightweight, algorithmic weekly snapshot of what artists actually listen to, with minimal friction and maximum autonomy.</p>
+    </section>
 
-      <div class="prototype-cta">
-        <h4>🎵 Try the Interactive Prototype</h4>
-        <p>See both the artist dashboard and fan experience:</p>
-        <div class="cta-group" style="justify-content: center; margin: 16px 0 0 0;">
-          <a href="spotify-prototype.html" class="cta-btn cta-btn-primary">Open Prototype →</a>
-        </div>
-      </div>
-
-      <h2>1. Research & Discovery</h2>
-
-      <h3>Research Methods</h3>
-      <p>We conducted exploratory interviews with 5 participants over 2 days:</p>
-      <ul>
-        <li>Independent musicians &amp; content creators</li>
-        <li>Artist managers &amp; music industry professionals</li>
-        <li>Casual listeners &amp; devoted fans</li>
-      </ul>
+    <section>
+      <h2>Research</h2>
+      <h3>Methods</h3>
+      <p>Exploratory interviews with 5 participants: musicians, managers, fans.</p>
 
       <h3>Key Findings</h3>
-
       <div class="finding">
         <strong>Finding 1: Artists Avoid High-Effort Features</strong><br>
-        <blockquote>"I don't want to maintain another playlist. I barely update my bio."</blockquote>
-        Implication: Auto-generation must be default, not optional effort.
+        "I don't want to maintain another playlist. I barely update my bio."<br><br>
+        Auto-generation must be default, not optional effort.
       </div>
 
       <div class="finding">
         <strong>Finding 2: Authenticity Over Curation</strong><br>
-        <blockquote>"I'd rather see what they actually listen to than what their label thinks they should share."</blockquote>
-        Implication: Algorithm-selected beats manually curated.
+        "I'd rather see what they actually listen to than what their label thinks they should share."<br><br>
+        Algorithm-selected beats manually curated.
       </div>
 
       <div class="finding">
         <strong>Finding 3: Minimal Context is Better</strong><br>
-        <blockquote>"If I have to write liner notes, I'm not doing it. A one-liner? Maybe."</blockquote>
-        Implication: Optional single-line context, not required fields.
+        "If I have to write liner notes, I'm not doing it. A one-liner? Maybe."<br><br>
+        Optional single-line context, not required fields.
       </div>
 
       <div class="finding">
         <strong>Finding 4: Artists Value Autonomy</strong><br>
-        <blockquote>"If it's automatic and I can delete stuff that makes me look bad, yeah."</blockquote>
-        Implication: Blacklist feature > no control. Toggle on/off > required.
+        "If it's automatic and I can delete stuff that makes me look bad, yeah."<br><br>
+        Blacklist feature > no control. Toggle on/off > required.
       </div>
+    </section>
 
-      <p style="margin-top: 24px;"><a href="spotify-research-synthesis.md">📋 Read the full research synthesis →</a></p>
+    <section>
+      <h2>Design Iterations</h2>
 
-      <h2>2. Design Iterations</h2>
+      <h3>Iteration 1: "Artist Curator Notes"</h3>
+      <p><strong>Why it failed:</strong> Requires manual curation, feels manufactured, creates moderation burden.</p>
 
-      <h3>Iteration 1: "Artist Curator Notes" ❌</h3>
-      <p><strong>Concept:</strong> Let artists manually curate playlists with annotations.</p>
-      <p><strong>Why it failed:</strong> Requires artists to select tracks manually, breaks Spotify's passive listening culture, risks feeling manufactured, creates moderation burden.</p>
-      <p><strong>Key learning:</strong> Artists want to share taste, not curate playlists.</p>
+      <h3>Iteration 2: "Comments on Playlists"</h3>
+      <p><strong>Why it failed:</strong> Heavy moderation burden, risks fan conflicts, breaks Spotify's listening-focused culture.</p>
 
-      <h3>Iteration 2: "Comments on Playlists" ❌</h3>
-      <p><strong>Concept:</strong> Allow fans to comment on artist playlists.</p>
-      <p><strong>Why it failed before shipping:</strong> Heavy moderation burden, Instagram Notes shows subtle beats loud, risks fan conflicts and toxicity.</p>
-      <p><strong>Key learning:</strong> Spotify's brand is about listening, not discourse.</p>
+      <h3>Iteration 3: "In Rotation"</h3>
+      <p><strong>Why it works:</strong> Auto-generated from listening history, low effort, high autonomy.</p>
 
-      <h3>Iteration 3: "In Rotation" ✅</h3>
-      <p><strong>Concept:</strong> Auto-generated weekly snapshot of 3-5 most-played tracks from the past 30 days.</p>
       <table>
         <tr>
           <th>Constraint</th>
           <th>Solution</th>
-          <th>Why</th>
         </tr>
         <tr>
           <td>Artist doesn't want to curate</td>
           <td>Algorithmic selection from listening history</td>
-          <td>Zero effort, leverages existing data</td>
         </tr>
         <tr>
           <td>Must feel authentic</td>
           <td>Shows actual plays, not PR picks</td>
-          <td>Transparency builds trust</td>
         </tr>
         <tr>
           <td>Avoid moderation burden</td>
           <td>No community features, just tracks</td>
-          <td>Eliminates spam/conflict vectors</td>
         </tr>
         <tr>
           <td>Low maintenance</td>
           <td>Auto-refresh weekly</td>
-          <td>Set-and-forget for artists</td>
         </tr>
         <tr>
-          <td>Maintain artist autonomy</td>
+          <td>Artist autonomy</td>
           <td>Toggle on/off, blacklist, pause</td>
-          <td>Creative control respects artist agency</td>
         </tr>
       </table>
+    </section>
 
-      <h2>3. Solution Design</h2>
+    <section>
+      <h2>Solution</h2>
 
       <h3>Artist Experience</h3>
-      <p><strong>Goal:</strong> Make it impossible to not publish something good without any work.</p>
-
-      <div class="code-block">
-1. Algorithm generates 3-5 tracks artist listened to most (past 30 days)
-2. Notification: "We created an In Rotation for you. Customize or publish?"
-3. Artist dashboard allows:
-   ├─ Toggle feature on/off anytime
-   ├─ Blacklist specific tracks/artists
-   ├─ Pause temporarily ("on tour")
-   ├─ Optional 1-line context
-   └─ Auto-refresh weekly
-      </div>
-
-      <h4>Key UX Decisions</h4>
       <ul>
-        <li><strong>Default on</strong> after first notification (but can disable)</li>
-        <li><strong>No required fields</strong> (artists can publish with zero changes)</li>
-        <li><strong>Blacklist for control</strong> (not all listening is shareable)</li>
-        <li><strong>Optional context</strong> (feels more authentic than forced explanation)</li>
+        <li>Algorithm generates 3-5 tracks from past 30 days</li>
+        <li>Notification: "We created an In Rotation for you. Customize or publish?"</li>
+        <li>Can toggle on/off, blacklist tracks, pause temporarily</li>
+        <li>Optional 1-line context</li>
+        <li>Auto-refresh weekly</li>
       </ul>
 
       <h3>Fan Experience</h3>
-      <p><strong>What they see:</strong> 3–5 tracks, "Updated X days ago", minimal design.</p>
-      <p><strong>Where it lives:</strong> Small modal on artist profile, underneath recent releases.</p>
-      <p><strong>Why minimal design?</strong> The music speaks for itself. No explanations needed.</p>
+      <p>Small modal showing 3-5 tracks with "Updated X days ago" timestamp. Placement: artist profile, underneath recent releases.</p>
+    </section>
 
-      <h2>4. Trade-offs & Strategic Decisions</h2>
-
+    <section>
+      <h2>Trade-offs</h2>
       <table>
         <tr>
           <th>Trade-off</th>
           <th>Decision</th>
-          <th>Rationale</th>
         </tr>
         <tr>
           <td>Algorithm vs. Control</td>
           <td>Default algorithmic, artists can blacklist</td>
-          <td>Remove paralysis, maintain agency</td>
         </tr>
         <tr>
           <td>Frequency</td>
           <td>Weekly refresh from 30-day history</td>
-          <td>Fresh but not volatile, predictable cadence</td>
         </tr>
         <tr>
           <td>Context</td>
           <td>Optional single-line comment</td>
-          <td>Artists who want to explain can; most won't</td>
         </tr>
         <tr>
           <td>Scale</td>
           <td>No community/comments/rating</td>
-          <td>Cuts moderation burden 90%, stays focused</td>
         </tr>
       </table>
+    </section>
 
-      <h2>5. Outcomes & Hypothetical Metrics</h2>
-
-      <p>If launched, we'd measure:</p>
-
-      <table>
-        <tr>
-          <th>Metric</th>
-          <th>Target</th>
-          <th>Reasoning</th>
-        </tr>
-        <tr>
-          <td>Artist opt-in rate</td>
-          <td>60%+</td>
-          <td>Low friction = high adoption</td>
-        </tr>
-        <tr>
-          <td>Feature publish rate</td>
-          <td>85%+</td>
-          <td>Pre-filled = fewer drop-offs</td>
-        </tr>
-        <tr>
-          <td>Fan engagement (plays)</td>
-          <td>+15% on In Rotation tracks</td>
-          <td>Authentic taste drives interest</td>
-        </tr>
-        <tr>
-          <td>Feature toggle-off</td>
-          <td>&lt;10%</td>
-          <td>If high, indicates friction</td>
-        </tr>
-        <tr>
-          <td>Blacklist usage</td>
-          <td>20-30%</td>
-          <td>Signals healthy editorial control</td>
-        </tr>
-      </table>
-
-      <h3>Post-Launch Validation</h3>
+    <section>
+      <h2>Outcomes</h2>
+      <p><strong>Hypothetical Metrics:</strong></p>
       <ul>
-        <li>Do artists actually customize or leave defaults?</li>
-        <li>Do fans engage with In Rotation tracks more than other content?</li>
-        <li>Does it make fans feel closer to artists?</li>
-        <li>Any abuse or operational red flags?</li>
+        <li>Artist opt-in rate: 60%+ (low friction = high adoption)</li>
+        <li>Feature publish rate: 85%+ (pre-filled = fewer drop-offs)</li>
+        <li>Fan engagement: +15% on In Rotation tracks</li>
+        <li>Toggle-off rate: &lt;10% (if high, indicates friction)</li>
       </ul>
+    </section>
 
-      <h2>6. Key Learnings</h2>
-
-      <div class="tldr">
-        <h3>What I Learned From This Project</h3>
-        <p><strong>1. Constraints enable innovation:</strong> "Artists won't curate" forced us to design something better—automation people actually want.</p>
-        <p><strong>2. Understand motivation, not feature requests:</strong> Artists want authentic taste signals, not curation effort. Design for the motivation.</p>
-        <p><strong>3. Operational thinking shapes UX:</strong> By rejecting community features early, we eliminated 80% of moderation complexity.</p>
-        <p><strong>4. Default behaviors matter:</strong> Auto-generation + smart defaults turned a niche feature into something 60%+ would adopt.</p>
-        <p><strong>5. Simplicity feels genuine:</strong> Showing actual listening beats curated playlists AND requires less effort.</p>
-      </div>
-
-      <h2>7. How This Applies to Enterprise Design</h2>
-
-      <p>This project demonstrates principles directly applicable to platforms like Amazon Benefits:</p>
-
+    <section>
+      <h2>Learnings</h2>
       <ul>
-        <li><strong>Dual-user thinking:</strong> Artist + fan mirrors employee + employer/administrator</li>
-        <li><strong>Constraint-aware design:</strong> Real operational limitations shape better UX</li>
-        <li><strong>Strategic simplification:</strong> Best solutions are sometimes invisible ("set and forget")</li>
-        <li><strong>Autonomy matters:</strong> Users adopt features where they feel in control</li>
-        <li><strong>Measurement mindset:</strong> Built with metrics in mind, not just aesthetics</li>
+        <li><strong>Constraints enable innovation:</strong> "Artists won't curate" forced better design.</li>
+        <li><strong>Understand motivation:</strong> Artists want authentic signals, not curation effort.</li>
+        <li><strong>Operational thinking:</strong> Rejecting community features cut moderation complexity 80%.</li>
+        <li><strong>Defaults matter:</strong> Auto-generation turned niche feature into 60%+ adoption.</li>
+        <li><strong>Simplicity feels genuine:</strong> Showing actual listening beats curated playlists AND requires less effort.</li>
       </ul>
+    </section>
 
-      <h2>8. What I'd Do Differently</h2>
-
+    <section>
+      <h2>Enterprise Design Principles</h2>
+      <p>This approach applies to platforms like Amazon Benefits:</p>
       <ul>
-        <li><strong>Larger research sample:</strong> 5 interviews gave direction; 20+ would validate better</li>
-        <li><strong>A/B test frequency:</strong> Is weekly optimal? Maybe bi-weekly feels fresher?</li>
-        <li><strong>Visual identity:</strong> Should In Rotation have distinct look or blend with profiles?</li>
-        <li><strong>Edge case testing:</strong> What if artists listen to very few/many tracks?</li>
-        <li><strong>Accessibility audit:</strong> WCAG compliance across all interaction states</li>
+        <li>Dual-user thinking (artist + fan mirrors employee + administrator)</li>
+        <li>Constraint-aware design (real operational limitations shape better UX)</li>
+        <li>Strategic simplification (best solutions are invisible)</li>
+        <li>Autonomy matters (users adopt features where they feel in control)</li>
+        <li>Measurement mindset (built with metrics in mind)</li>
       </ul>
+    </section>
 
-      <div class="cta-group">
-        <a href="spotify-prototype.html" class="cta-btn cta-btn-primary">Explore Interactive Prototype</a>
-        <a href="spotify-research-synthesis.md" class="cta-btn cta-btn-secondary">View Research Synthesis</a>
-      </div>
+    <div class="prototype-link">
+      <div style="font-size: 9px; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #ff59a6;">View Interactive Prototype</div>
+      <a href="spotify-prototype.html">Open Prototype</a>
     </div>
+  </main>
 
-    <div class="case-footer">
-      <p>Case study by Victoria Peng • 2026</p>
-      <p><a href="/">← Back to Portfolio</a></p>
-    </div>
-  </div>
+  <footer>˚✧ © 2026 victoria peng ✧˚</footer>
+</div>
 </body>
 </html>
