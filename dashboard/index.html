@@ -2,123 +2,246 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>FRED Indicators – Economic Data Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FRED Dashboard — victoria peng</title>
   <meta name="description" content="Real-time economic data from the Federal Reserve Economic Data (FRED) system"/>
-  <meta name="theme-color" content="#0f172a"/>
+  <meta name="theme-color" content="#fff"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #e2e8f0; }
-    .header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; }
-    .header h1 { font-size: 2rem; font-weight: 700; color: #f1f5f9; }
-    .header p { color: #94a3b8; margin-top: 4px; }
-    .kpis { display: flex; gap: 20px; margin-top: 20px; }
-    .kpi { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; flex: 1; }
-    .kpi h3 { font-size: 1.5rem; color: #3b82f6; }
-    .kpi p { color: #cbd5e1; }
-    .sidebar { width: 280px; background: #1e293b; height: 100vh; position: fixed; left: 0; top: 0; padding: 20px; border-right: 1px solid #334155; overflow-y: auto; }
-    .sidebar h2 { font-size: 1.25rem; margin-bottom: 20px; color: #f1f5f9; }
-    .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; margin-bottom: 4px; cursor: pointer; transition: background 0.2s; }
-    .nav-item.active { background: #3b82f6; color: #fff; }
-    .nav-item:hover { background: #334155; }
-    .nav-item svg { width: 20px; height: 20px; }
-    .main { margin-left: 280px; padding: 24px; }
-    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
-    .card h3 { font-size: 1.1rem; font-weight: 600; margin: 0; padding: 16px 16px 0 16px; color: #e2e8f0; }
-    .card-content { flex: 1; overflow: hidden; padding: 12px 16px 16px 16px; }
-    .card iframe { width: 100%; height: 100%; min-height: 420px; border: none; border-radius: 6px; display: block; }
-    .footer { text-align: center; padding: 20px; color: #64748b; border-top: 1px solid #334155; margin-top: 40px; }
-    @media (max-width: 1200px) { .grid { grid-template-columns: 1fr; } }
-    @media (max-width: 768px) { .sidebar { width: 100%; position: relative; height: auto; margin-bottom: 20px; } .main { margin-left: 0; padding: 16px; } .grid { grid-template-columns: 1fr; gap: 16px; } .card h3 { font-size: 1rem; padding: 12px 12px 0 12px; } .card-content { padding: 8px 12px 12px 12px; } }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #ffe8f4; }
+    ::-webkit-scrollbar-thumb { background: #ff59a6; border-radius: 3px; }
+
+    body {
+      font-family: Verdana, sans-serif;
+      font-size: 10px;
+      background: #fff;
+      color: #444;
+      cursor: crosshair;
+      line-height: 1.8;
+    }
+
+    a {
+      color: #ff1bad;
+      text-decoration: underline dotted;
+    }
+    a:hover { font-weight: bold; letter-spacing: 0.5px; }
+
+    #container {
+      max-width: 900px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    header {
+      text-align: center;
+      border-bottom: 1px dotted #ff99c8;
+      padding-bottom: 18px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: -1px;
+      color: #ff59a6;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: #999;
+      font-size: 9px;
+      margin-top: 4px;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .kpi {
+      border: 1px dotted #ff99c8;
+      padding: 10px 12px;
+      border-radius: 2px;
+    }
+
+    .kpi h3 {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 13px;
+      color: #ff59a6;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .kpi p {
+      font-size: 8px;
+      color: #999;
+      margin: 0;
+    }
+
+    h2 {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: #ff59a6;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+
+    .sidebar {
+      margin-bottom: 24px;
+      border-bottom: 1px dotted #ffcde4;
+      padding-bottom: 18px;
+    }
+
+    .nav-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 8px;
+      color: #999;
+      padding: 4px 6px;
+      border: 1px dotted #ffcde4;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover {
+      background: #fff5fb;
+      color: #ff59a6;
+      border-color: #ff99c8;
+    }
+
+    .nav-item svg { width: 12px; height: 12px; stroke-width: 2; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      border: 1px dotted #ff99c8;
+      overflow: hidden;
+      transition: background 0.15s;
+    }
+
+    .card:hover {
+      background: #fff5fb;
+    }
+
+    .card h3 {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 11px;
+      color: #ff59a6;
+      padding: 12px 12px 8px 12px;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .card-content {
+      padding: 0 12px 12px 12px;
+      min-height: 420px;
+      display: flex;
+    }
+
+    .card iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      border: 1px dotted #ffcde4;
+      border-radius: 2px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 8px;
+      color: #ffb3d9;
+      padding: 20px 0 32px;
+      letter-spacing: 0.8px;
+      border-top: 1px dotted #ffcde4;
+      margin-top: 28px;
+    }
+
+    @media (max-width: 768px) {
+      #container { padding: 0 16px; }
+      .grid { grid-template-columns: 1fr; gap: 12px; }
+      h1 { font-size: 18px; }
+      .nav-group { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <h2>FRED Indicators</h2>
-    <div class="nav-item active">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-        <polyline points="16 7 22 7 22 13"></polyline>
-      </svg>
-      Key Indicators
-    </div>
-    <div class="nav-item">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-        <polyline points="16 7 22 7 22 13"></polyline>
-      </svg>
-      Inflation
-    </div>
-    <div class="nav-item">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-        <rect width="20" height="14" x="2" y="6" rx="2"></rect>
-      </svg>
-      Employment
-    </div>
-    <div class="nav-item">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="18" x2="18" y1="20" y2="10"></line>
-        <line x1="12" x2="12" y1="20" y2="4"></line>
-        <line x1="6" x2="6" y1="20" y2="14"></line>
-      </svg>
-      Interest Rates
-    </div>
-    <div class="nav-item">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-        <polyline points="16 7 22 7 22 13"></polyline>
-      </svg>
-      Economic Growth
-    </div>
-    <div class="nav-item">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-        <path d="M2 12h20"></path>
-      </svg>
-      Exchange Rates
-    </div>
-    <div class="nav-item">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-        <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-      </svg>
-      Housing
-    </div>
-    <div class="nav-item">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="8" cy="21" r="1"></circle>
-        <circle cx="19" cy="21" r="1"></circle>
-        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
-      </svg>
-      Consumer Spending
-    </div>
-  </div>
-  <div class="main">
-    <div class="header">
-      <h1>Economic Indicators Dashboard</h1>
-      <p>Real-time data from the Federal Reserve Economic Data (FRED) system</p>
+  <div id="container">
+    <header>
+      <h1>FRED Indicators ✧˚</h1>
+      <p>Real-time economic data from the Federal Reserve Economic Data (FRED) system</p>
       <div class="kpis">
         <div class="kpi">
           <h3>2.5%</h3>
-          <p>Current Inflation (CPI)</p>
+          <p>Inflation (CPI)</p>
         </div>
         <div class="kpi">
           <h3>4.1%</h3>
-          <p>Unemployment Rate</p>
+          <p>Unemployment</p>
         </div>
         <div class="kpi">
           <h3>4.2%</h3>
-          <p>10-Year Treasury Yield</p>
+          <p>10-Yr Yield</p>
         </div>
         <div class="kpi">
           <h3>2.1%</h3>
-          <p>GDP Growth (Q4)</p>
+          <p>GDP Growth</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="sidebar">
+      <h2>⋆ categories</h2>
+      <div class="nav-group">
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+          Key Indicators
+        </div>
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+          Inflation
+        </div>
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><rect width="20" height="14" x="2" y="6" rx="2"></rect></svg>
+          Employment
+        </div>
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" x2="18" y1="20" y2="10"></line><line x1="12" x2="12" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="14"></line></svg>
+          Interest Rates
+        </div>
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+          Growth
+        </div>
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+          Rates
         </div>
       </div>
     </div>
+
+    <h2>⋆ charts</h2>
     <div class="grid">
       <div class="card">
         <h3>CPI – Last Five Years</h3>
@@ -145,9 +268,8 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      © 2026 Victoria Peng | Data provided by Federal Reserve Economic Data (FRED)
-    </div>
+
+    <footer>˚✧ © 2026 victoria peng ✧˚ | Data from FRED</footer>
   </div>
 </body>
 </html>
