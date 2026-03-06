@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Short $CHGG — victoria peng</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #ffe8f4; }
+    ::-webkit-scrollbar-thumb { background: #ff59a6; border-radius: 3px; }
+
+    body {
+      font-family: Verdana, sans-serif;
+      font-size: 10px;
+      background: #fff;
+      color: #444;
+      cursor: crosshair;
+      line-height: 1.9;
+    }
+
+    a { color: #ff1bad; text-decoration: underline dotted; }
+    a:hover { font-weight: bold; }
+
+    #container {
+      max-width: 660px;
+      margin: 48px auto;
+      padding: 0 24px 64px;
+    }
+
+    .back {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: #ffb3d9;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .back:hover { color: #ff59a6; font-weight: bold; }
+
+    .article-title {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: -1px;
+      color: #ff59a6;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .article-meta {
+      font-size: 9px;
+      color: #ccc;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px dotted #ffcde4;
+    }
+
+    h2 {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #ff59a6;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 32px 0 12px;
+    }
+
+    h3 {
+      font-size: 10px;
+      font-weight: bold;
+      color: #555;
+      margin: 18px 0 8px;
+    }
+
+    p { margin-bottom: 10px; }
+
+    ul { list-style: none; padding: 0; margin-bottom: 12px; }
+    ul li { padding: 2px 0 2px 14px; position: relative; }
+    ul li::before { content: '✧'; color: #ffb3d9; position: absolute; left: 0; }
+
+    .section-block {
+      border-bottom: 1px dotted #ffcde4;
+      padding-bottom: 24px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Trade overview boxes ── */
+    .trade-row {
+      display: flex;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .trade-box {
+      flex: 1;
+      border: 1px dotted #ff99c8;
+      background: #fffbfd;
+      padding: 12px;
+      text-align: center;
+    }
+    .trade-box-label {
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ffb3d9;
+      margin-bottom: 4px;
+    }
+    .trade-box-val {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 16px;
+      color: #ff59a6;
+      letter-spacing: -0.5px;
+    }
+
+    /* ── Key stats table ── */
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 9px;
+    }
+    .stats-table td {
+      padding: 4px 8px 4px 0;
+      border-bottom: 1px dotted #f5e8f0;
+      color: #555;
+    }
+    .stats-table td:first-child { color: #ffb3d9; width: 42%; }
+    .stats-table tr:last-child td { border-bottom: none; }
+
+    /* ── Catalyst cards ── */
+    .catalyst-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .catalyst-card {
+      border: 1px dotted #ff99c8;
+      background: #fffbfd;
+      padding: 12px;
+      font-size: 9px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .catalyst-card-title {
+      font-size: 9px;
+      font-weight: bold;
+      color: #ff59a6;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    /* ── Competitors ── */
+    .comp-row-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .comp-item {
+      border: 1px dotted #ff99c8;
+      padding: 10px 12px;
+      background: #fffbfd;
+    }
+    .comp-item-name {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 10px;
+      color: #ff59a6;
+      margin-bottom: 4px;
+    }
+    .comp-item-price {
+      font-size: 9px;
+      font-weight: bold;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .comp-item-desc { font-size: 9px; color: #999; line-height: 1.5; }
+
+    .stat-hl {
+      display: inline-block;
+      background: #fff0f8;
+      border: 1px dotted #ff99c8;
+      padding: 1px 7px;
+      border-radius: 2px;
+      font-size: 9px;
+      color: #ff59a6;
+      font-weight: bold;
+      margin: 1px 3px 1px 0;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .risk-card {
+      border: 1px dotted #ffcde4;
+      padding: 10px 12px;
+      font-size: 9px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    .takeaway {
+      border-left: 2px dotted #ff99c8;
+      padding-left: 14px;
+      margin: 14px 0;
+      font-size: 10px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .val-row {
+      display: flex;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .val-box {
+      flex: 1;
+      border: 1px dotted #ff99c8;
+      background: #fffbfd;
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .val-box-label { font-size: 8px; text-transform: uppercase; letter-spacing: 0.8px; color: #ffb3d9; margin-bottom: 4px; }
+    .val-box-val { font-size: 12px; color: #555; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div id="container">
+
+  <a class="back" href="index.html">← back</a>
+
+  <div class="article-title">Short $CHGG —<br>Chegg Investment Analysis</div>
+  <div class="article-meta">HSBC Case Competition &nbsp;·&nbsp; Victoria Peng &nbsp;·&nbsp; Source: Raymond James Investment Banking</div>
+
+  <div class="section-block">
+    <h2>Executive Summary</h2>
+
+    <div class="trade-row">
+      <div class="trade-box">
+        <div class="trade-box-label">Position</div>
+        <div class="trade-box-val">Short $CHGG</div>
+      </div>
+      <div class="trade-box">
+        <div class="trade-box-label">Price Target</div>
+        <div class="trade-box-val">$53</div>
+      </div>
+      <div class="trade-box">
+        <div class="trade-box-label">Downside</div>
+        <div class="trade-box-val">44%</div>
+      </div>
+    </div>
+
+    <table class="stats-table">
+      <tr><td>Stock Price (at time)</td><td>$95.40</td></tr>
+      <tr><td>52-Week Range</td><td>$40.01 – $115.21</td></tr>
+      <tr><td>Market Cap</td><td>$13.39B</td></tr>
+      <tr><td>2020 Revenue</td><td>$644M</td></tr>
+      <tr><td>Short Interest</td><td>9%</td></tr>
+      <tr><td>Borrow Rate</td><td>0.25% — low, allows for long-term exposure and patience</td></tr>
+    </table>
+
+    <p><strong>Investment Thesis:</strong> Return to in-person education will decrease Chegg's overall utility and demand for its services. Simultaneously, implementation of the Honor Shield will reduce Chegg's primary use case — cheating — and anti-account-sharing measures will make subscriptions less affordable and users more identifiable to institutions.</p>
+
+    <div class="catalyst-grid">
+      <div class="catalyst-card">
+        <div class="catalyst-card-title">Return to In-Person Schooling</div>
+        Decreases Chegg's utility — students can no longer use it during in-person tests and assignments, reducing subscription renewals post-summer 2021.
+      </div>
+      <div class="catalyst-card">
+        <div class="catalyst-card-title">Implementation of the "Honor Shield"</div>
+        Lowers risk/reward for students using Chegg to cheat. Enables institutions to block exam questions, ultimately causing a decline in subscriber growth.
+      </div>
+      <div class="catalyst-card">
+        <div class="catalyst-card-title">Prevention of Account Sharing</div>
+        MFA and 2-device limits force individual subscriptions, making Chegg less affordable. Cheaper competitors ($4–$10/month) become more attractive.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Industry Overview</h2>
+    <p>EdTech demand surged during COVID-19 as schools moved online, enabling widespread cheating via homework-answer platforms. As in-person schooling returns, this artificial demand is expected to normalize.</p>
+    <ul>
+      <li>Online education market expected to reach <span class="stat-hl">$374B by 2026</span></li>
+      <li>CAGR of <span class="stat-hl">14.6%</span> until 2026 — long-term growth remains but short-term headwinds are real</li>
+      <li>Subscription fees typically $5–$15/month across the competitive set</li>
+      <li>Primary users: high school and college students seeking homework/exam answers</li>
+    </ul>
+
+    <h3>Competitors</h3>
+    <div class="comp-row-grid">
+      <div class="comp-item">
+        <div class="comp-item-name">Quizlet</div>
+        <div class="comp-item-price">$3–$4/month</div>
+        <div class="comp-item-desc">Flashcards and memorization — not positioned as an answer tool. 50M users/month. Primarily freemium.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-name">Course Hero</div>
+        <div class="comp-item-price">$10/month</div>
+        <div class="comp-item-desc">Document sharing + Q&A library. Direct Chegg competitor. Stands to gain if Chegg loses subscribers.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-name">Bartleby (Barnes &amp; Noble)</div>
+        <div class="comp-item-price">$10/month</div>
+        <div class="comp-item-desc">Similar Q&A library model. 300K+ subscribers in FY2021. Growing but small.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-name">Brainly</div>
+        <div class="comp-item-price">$2/month (or free)</div>
+        <div class="comp-item-desc">Community-based Q&A. 350M users in 35 countries. Price-sensitive alternative to paid platforms.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Chegg Business Model</h2>
+    <ul>
+      <li>Subscription access to a library of homework and test Q&amp;A — base plan ~$15/month</li>
+      <li><span class="stat-hl">82%</span> of revenue from Chegg Services; 18% from textbook rental/sales ("Required Materials")</li>
+      <li>Historical revenue: $149M (2010) → $644M (2020) — decade of steady growth</li>
+      <li>Outperformed $SPY by <span class="stat-hl">110%</span> since onset of pandemic</li>
+    </ul>
+
+    <h3>The Cheating Problem</h3>
+    <p>Chegg is advertised as a study tool — but the data tells a different story:</p>
+    <ul>
+      <li><span class="stat-hl">91%</span> of students (42/46) surveyed by Forbes admitted to using Chegg to cheat in the past year</li>
+      <li>Saw <span class="stat-hl">70%</span> subscriber growth and <span class="stat-hl">200%</span> increase in question submissions following the move to virtual learning</li>
+      <li>Texas A&amp;M: 20% increase in academic violations in 2020 (800 total), triggering investigation into Chegg usage</li>
+      <li>Georgia Tech: physics exam questions posted to Chegg mid-exam; Chegg cooperated with GT to identify students</li>
+    </ul>
+    <div class="takeaway">Chegg's pandemic growth wasn't driven by legitimate studying. It was driven by the ability to cheat openly during remote exams. As that window closes, so does the artificial subscriber base.</div>
+  </div>
+
+  <div class="section-block">
+    <h2>Catalyst 1 — Return to In-Person Schooling</h2>
+    <p>Rising vaccination rates accelerated the Fall 2021 return to campus. SUNY system, California K-12 schools, and most U.S. states announced full in-person reopening. Schools requiring vaccines removed remote-learning entirely.</p>
+
+    <p>The causal chain:</p>
+    <ul>
+      <li>Spring 2020: online school → online tests → ability to use Chegg → <span class="stat-hl">+70% subscriptions, +60% services revenue</span></li>
+      <li>Summer 2021: subscriptions canceled over summer → return to in-person in fall → in-person assignments/tests → inability to use Chegg during exams → fewer renewals → decline in services revenue growth</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>Catalyst 2 — The "Honor Shield"</h2>
+    <p>Launched January 2021. Allows teachers to upload exam questions to Chegg directly, which then blocks those questions for students during the exam window. Potential to extend to homework questions.</p>
+    <ul>
+      <li>Decreases utility of Chegg for cheating → lower risk/reward for students considering subscribing</li>
+      <li>Honor Code: Chegg states willingness to cooperate with any institution identifying students who used the site</li>
+      <li>Chegg cooperating with institutions makes individual users identifiable — raises the risk of using the platform</li>
+    </ul>
+    <div class="takeaway">Paradoxically, Honor Shield was designed to legitimize Chegg — but it removes the primary reason students paid for it. A safer Chegg is a less useful Chegg for its core user behavior.</div>
+  </div>
+
+  <div class="section-block">
+    <h2>Catalyst 3 — Prevention of Account Sharing</h2>
+    <p>Chegg CFO (7/27/20) stated the company is "developing technologies to try to either eliminate or reduce account sharing." Steps taken:</p>
+    <ul>
+      <li>MFA: users must link account to a mobile phone number and verify each login</li>
+      <li>Access limited to 2 devices per account</li>
+    </ul>
+    <p>Unintended consequences that support the short thesis:</p>
+    <ul>
+      <li>MFA makes individual users easier for academic institutions to identify</li>
+      <li>Students with limited income who previously shared accounts may be unwilling to pay full price individually</li>
+      <li>Only <span class="stat-hl">24%</span> of students (Needham Report) were willing to purchase a study tool for themselves</li>
+      <li>Cheaper alternatives become more attractive: Quizlet at $4, Course Hero and Bartleby at $10 vs. Chegg at $15+</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>Valuation</h2>
+    <p>Price target of $53 represents 44% downside from $95.40. Football field analysis shows most valuation methods cluster well below current trading price.</p>
+
+    <div class="val-row">
+      <div class="val-box"><div class="val-box-label">WACC</div><div class="val-box-val">6.73%</div></div>
+      <div class="val-box"><div class="val-box-label">2024 EV/EBITDA</div><div class="val-box-val">15.48x</div></div>
+      <div class="val-box"><div class="val-box-label">Terminal Growth</div><div class="val-box-val">2.5%</div></div>
+    </div>
+
+    <p>Valuation weighting: Gordon Growth 50% · DCF Multiple 40% · Comps 10%</p>
+    <p>Only the analyst price target range extends above $95 — suggesting the market was pricing in continued pandemic-level growth that the three catalysts above would undermine.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>Risks to the Thesis</h2>
+    <div class="risk-grid">
+      <div class="risk-card"><strong style="color:#aaa;display:block;margin-bottom:4px">Vaccine hesitancy</strong>High proportion of students refusing vaccines could slow return to in-person, extending Chegg's pandemic utility.</div>
+      <div class="risk-card"><strong style="color:#aaa;display:block;margin-bottom:4px">Auto-renewal stickiness</strong>Subscriptions renew automatically — students may not cancel despite returning to in-person, Honor Shield, or MFA.</div>
+      <div class="risk-card"><strong style="color:#aaa;display:block;margin-bottom:4px">Honor Shield enables safe cheating</strong>Paradoxically, if Honor Shield removes the risk of academic violations, students may feel safer using Chegg — not less likely to subscribe.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
