@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khan Academy UX — victoria peng</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #ffe8f4; }
+    ::-webkit-scrollbar-thumb { background: #ff59a6; border-radius: 3px; }
+
+    body {
+      font-family: Verdana, sans-serif;
+      font-size: 10px;
+      background: #fff;
+      color: #444;
+      cursor: crosshair;
+      line-height: 1.9;
+    }
+
+    a { color: #ff1bad; text-decoration: underline dotted; }
+    a:hover { font-weight: bold; }
+
+    #container {
+      max-width: 640px;
+      margin: 48px auto;
+      padding: 0 24px 64px;
+    }
+
+    .back {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: #ffb3d9;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .back:hover { color: #ff59a6; font-weight: bold; }
+
+    .article-title {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: -1px;
+      color: #ff59a6;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .article-meta {
+      font-size: 9px;
+      color: #ccc;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px dotted #ffcde4;
+    }
+
+    h2 {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #ff59a6;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 32px 0 12px;
+    }
+
+    h3 {
+      font-size: 10px;
+      font-weight: bold;
+      color: #555;
+      margin: 20px 0 8px;
+    }
+
+    p { margin-bottom: 10px; }
+
+    ul { list-style: none; padding: 0; margin-bottom: 12px; }
+    ul li { padding: 2px 0 2px 14px; position: relative; }
+    ul li::before { content: '✧'; color: #ffb3d9; position: absolute; left: 0; }
+
+    .section-block {
+      border-bottom: 1px dotted #ffcde4;
+      padding-bottom: 24px;
+      margin-bottom: 8px;
+    }
+
+    /* ── BLUF thesis box ── */
+    .thesis-box {
+      border: 1px dotted #ff59a6;
+      background: #fff5fb;
+      padding: 16px 18px;
+      margin: 0 0 28px;
+    }
+    .thesis-label {
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #ff59a6;
+      margin-bottom: 8px;
+    }
+    .thesis-text {
+      font-size: 11px;
+      color: #444;
+      line-height: 1.7;
+    }
+
+    /* ── Opportunity grid ── */
+    .opp-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .opp-item {
+      border: 1px dotted #ffcde4;
+      padding: 8px 12px;
+      font-size: 9px;
+      color: #777;
+      background: #fffbfd;
+      line-height: 1.5;
+    }
+
+    /* ── HMW cards ── */
+    .hmw-card {
+      border: 1px dotted #ff99c8;
+      padding: 12px 16px;
+      margin: 10px 0;
+    }
+    .hmw-label {
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #ffb3d9;
+      margin-bottom: 6px;
+    }
+    .hmw-q {
+      font-size: 10px;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .hmw-rationale { font-size: 9px; color: #999; line-height: 1.6; }
+
+    /* ── Finding cards ── */
+    .finding-card {
+      border-left: 2px dotted #ffcde4;
+      padding: 8px 0 8px 16px;
+      margin: 12px 0;
+    }
+    .finding-num {
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #ffb3d9;
+      margin-bottom: 4px;
+    }
+    .finding-impl {
+      font-size: 9px;
+      color: #aaa;
+      margin-top: 6px;
+    }
+    .finding-impl::before { content: '→ '; color: #ffb3d9; }
+
+    blockquote {
+      margin: 8px 0;
+      padding: 6px 0 6px 12px;
+      border-left: 2px solid #ff99c8;
+    }
+    blockquote .quote-text {
+      font-family: 'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif;
+      font-size: 11px;
+      color: #ff59a6;
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 3px;
+    }
+    blockquote .quote-attr { font-size: 9px; color: #bbb; }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 4px 16px;
+      font-size: 9px;
+      margin: 10px 0;
+    }
+    .meta-label { color: #ffb3d9; white-space: nowrap; }
+    .meta-val { color: #888; }
+
+    .reflection-box {
+      border: 1px dotted #ff99c8;
+      background: #fffbfd;
+      padding: 14px 16px;
+      margin: 14px 0;
+      font-size: 9px;
+      color: #777;
+      line-height: 1.7;
+    }
+    .reflection-box p { margin-bottom: 8px; }
+    .reflection-box p:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+<div id="container">
+
+  <a class="back" href="index.html">← back</a>
+
+  <div class="article-title">Khan Academy —<br>Mitigating User Dropoff</div>
+  <div class="article-meta">UX Research · Independent · August – December 2020</div>
+
+  <!-- ── BLUF ── -->
+  <div class="thesis-box">
+    <div class="thesis-label">Bottom Line</div>
+    <div class="thesis-text">
+      Khan Academy learners drop off not because of content quality — but because the platform places too much invisible labor on the person: planning what to study, managing time and scope, recovering from errors, and maintaining motivation alone. The design opportunity is to externalize that labor.
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Design Directions</h2>
+
+    <div class="hmw-card">
+      <div class="hmw-label">Direction 1</div>
+      <div class="hmw-q">How might we provide feedback that motivates users to continue learning, rather than discouraging them?</div>
+      <div class="hmw-rationale">Help systems that feel punitive — score penalties, harsh correctness signals, "I don't know" buttons — reduce confidence and persistence. Design response: written explanations by default, optional video walkthrough, multiple valid solution paths.</div>
+    </div>
+
+    <div class="hmw-card">
+      <div class="hmw-label">Direction 2</div>
+      <div class="hmw-q">How might we offer multiple ways to engage with content without overwhelming the learner?</div>
+      <div class="hmw-rationale">Users disengaged when learning felt too passive (only videos) or too rigid (one format). Explored: videos with transcripts, articles, flashcards, practice problems, small projects. Intentionally chose flexibility over collaboration — most Khan Academy users study independently.</div>
+    </div>
+
+    <div class="hmw-card">
+      <div class="hmw-label">Direction 3</div>
+      <div class="hmw-q">How might we introduce collaboration in a way that supports accountability without forcing social interaction?</div>
+      <div class="hmw-rationale">Explored collaborative practice problems → shifted from player-vs-player scoring to shared team submissions focused on reasoning. Chose text-based over voice/video: lower coordination overhead, better async support. Threaded discussion (over Discord-style chat) for higher signal-to-noise.</div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Opportunities Identified</h2>
+    <div class="opp-list">
+      <div class="opp-item">Guided prioritization — recommended next topics, bounded scopes</div>
+      <div class="opp-item">Non-punitive help flows — hints that don't penalize</div>
+      <div class="opp-item">Clear recovery states — explain what's happening when things fail</div>
+      <div class="opp-item">Re-entry support — resume cues, progress snapshots</div>
+      <div class="opp-item">Contextual collaboration — shared progress, optional</div>
+      <div class="opp-item">Externalized planning — reduce invisible labor on the learner</div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Key Findings</h2>
+
+    <div class="finding-card">
+      <div class="finding-num">Finding 1 · Cognitive overload</div>
+      <blockquote>
+        <div class="quote-text">"So much to cover… it made me want to study less."</div>
+        <div class="quote-attr">— Alexander (AP prep)</div>
+      </blockquote>
+      <div class="finding-impl">Content abundance without guidance reduces momentum.</div>
+    </div>
+
+    <div class="finding-card">
+      <div class="finding-num">Finding 2 · Punitive help</div>
+      <blockquote>
+        <div class="quote-text">"Every time I asked for help, it marked the whole question wrong."</div>
+        <div class="quote-attr">— Elizabeth (high school)</div>
+      </blockquote>
+      <div class="finding-impl">Khan Academy unintentionally discourages the learning behaviors it aims to support.</div>
+    </div>
+
+    <div class="finding-card">
+      <div class="finding-num">Finding 3 · Broken recovery</div>
+      <blockquote>
+        <div class="quote-text">"It just stayed white — I didn't know what to do."</div>
+        <div class="quote-attr">— Multiple participants, Khan Academy mobile</div>
+      </blockquote>
+      <div class="finding-impl">Lack of recovery messaging creates frustration disproportionate to the error.</div>
+    </div>
+
+    <div class="finding-card">
+      <div class="finding-num">Finding 4 · Structure over content</div>
+      <blockquote>
+        <div class="quote-text">"I just sat in front of my computer. I liked that it told me what to do next."</div>
+        <div class="quote-attr">— Kelley (comparing Coursera to Khan Academy)</div>
+      </blockquote>
+      <div class="finding-impl">Learners wanted structure and pacing, not better lessons. Persistence improves when planning is externalized.</div>
+    </div>
+
+    <div class="finding-card">
+      <div class="finding-num">Finding 5 · Contextual accountability</div>
+      <blockquote>
+        <div class="quote-text">"It's not the same if they're not in the same course."</div>
+        <div class="quote-attr">— Kelley</div>
+      </blockquote>
+      <div class="finding-impl">Lightweight, contextual accountability matters — but only when it's shared context, not forced socialization.</div>
+    </div>
+
+    <div class="finding-card">
+      <div class="finding-num">Finding 6 · External workarounds</div>
+      <blockquote>
+        <div class="quote-text">"I need to organize everything somewhere else."</div>
+        <div class="quote-attr">— Cherry (GRE prep)</div>
+      </blockquote>
+      <div class="finding-impl">3/9 participants used Notion or Google Docs to manage their Khan Academy learning. The platform outsourced planning entirely to the user.</div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Research Design</h2>
+    <div class="meta-grid">
+      <span class="meta-label">Role</span><span class="meta-val">UX Researcher (Independent)</span>
+      <span class="meta-label">Methods</span><span class="meta-val">Semi-structured interviews (9 participants, 30–40 min), think-aloud walkthroughs, retrospective reflection, heuristic evaluation</span>
+      <span class="meta-label">Participants</span><span class="meta-val">Current or recent learners using Khan Academy for real goals: AP prep, GRE prep, high school coursework, professional upskilling</span>
+      <span class="meta-label">Reference tools</span><span class="meta-val">Magoosh, Coursera, Codecademy, Duolingo, Quizlet, Notion — surfaced naturally in interviews, not studied directly</span>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>Reflection — 4 Years Later</h2>
+    <div class="reflection-box">
+      <p>Collaborative practice problems are compelling — but they introduce significant engineering complexity, moderation challenges, scheduling friction, and edge cases around performance and assessment.</p>
+      <p>Today, I believe the ROI opportunity lies elsewhere. Instead of real-time collaboration, Khan Academy could surface inline explanations from other learners, show multiple annotated solution paths, highlight common misconceptions, and attribute approaches anonymously — like Slader does.</p>
+      <p>This preserves the benefit of collaboration without the operational complexity of managing real-time interaction.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
