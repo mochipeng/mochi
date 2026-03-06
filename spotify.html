@@ -214,170 +214,166 @@
 <body>
 <div id="container">
   <header>
-    <h1>Case Study: Spotify "In Rotation"</h1>
-    <div class="subtitle">Designing authentic artist taste signals without curation burden</div>
+    <h1>Spotify "In Rotation"</h1>
+    <div class="subtitle">what if artists could just... share what they actually listen to?</div>
     <div class="metadata">
       <div class="metadata-item"><span class="metadata-label">Role:</span> UX Designer + UX Writer</div>
       <div class="metadata-item"><span class="metadata-label">Timeline:</span> 3-Day Sprint</div>
       <div class="metadata-item"><span class="metadata-label">Methods:</span> User Research, Iteration, Prototyping</div>
-    </div>
-    <div class="nav">
-      <a href="/">back to portfolio</a>
     </div>
   </header>
 
   <main>
     <section>
       <h2>Problem</h2>
-      <p>Artists want to authentically share what they're listening to, but existing playlist curation tools require ongoing maintenance effort that most artists won't sustain.</p>
-      <p><strong>Insight:</strong> Remove the work. Make it automatic, optional, and under their control.</p>
-      <p><strong>Solution:</strong> "In Rotation"—a lightweight, algorithmic weekly snapshot of what artists actually listen to, with minimal friction and maximum autonomy.</p>
+      <p>Artists want fans to know what they're actually listening to. But curating playlists? Maintaining them? Nobody does that. It's too much work for something that feels kind of fake anyway.</p>
+      <p>The insight: most artists won't create or update curation features. so don't ask them to. make it automatic instead.</p>
+      <p>What if spotify just showed you what your favorite artists have been playing the past month? no curation, no effort—just real. that's "in rotation."</p>
     </section>
 
     <section>
       <h2>Research</h2>
       <h3>Methods</h3>
-      <p>Exploratory interviews with 5 participants: musicians, managers, fans.</p>
-
+      <p>Exploratory interviews with 5 friends.</p>s
+s
       <h3>Key Findings</h3>
       <div class="finding">
-        <strong>Finding 1: Artists Avoid High-Effort Features</strong><br>
-        "I don't want to maintain another playlist. I barely update my bio."<br><br>
-        Auto-generation must be default, not optional effort.
+        <strong>nobody wants another thing to maintain</strong><br>
+        "i don't want to maintain another playlist. i barely update my bio."<br><br>
+        if it requires effort, artists won't do it. period.
       </div>
 
       <div class="finding">
-        <strong>Finding 2: Authenticity Over Curation</strong><br>
-        "I'd rather see what they actually listen to than what their label thinks they should share."<br><br>
-        Algorithm-selected beats manually curated.
+        <strong>real beats curated</strong><br>
+        "i'd rather see what they actually listen to than what their label thinks they listen to."<br><br>
+        fans can tell when something's fake. they want to see the real thing.
       </div>
 
       <div class="finding">
-        <strong>Finding 3: Minimal Context is Better</strong><br>
-        "If I have to write liner notes, I'm not doing it. A one-liner? Maybe."<br><br>
-        Optional single-line context, not required fields.
+        <strong>less writing = better</strong><br>
+        "if i have to write liner notes i'm not doing it. one sentence? maybe."<br><br>
+        optional context is fine. required fields? you're killing the feature.
       </div>
 
       <div class="finding">
-        <strong>Finding 4: Artists Value Autonomy</strong><br>
-        "If it's automatic and I can delete stuff that makes me look bad, yeah."<br><br>
-        Blacklist feature > no control. Toggle on/off > required.
+        <strong>control matters</strong><br>
+        "if it's automatic and i can hide stuff that's embarrassing, yeah i'd use that."<br><br>
+        artists need to feel like they have a say. give them a blacklist, not nothing.
       </div>
     </section>
 
     <section>
       <h2>Design Iterations</h2>
 
-      <h3>Iteration 1: "Artist Curator Notes"</h3>
-      <p><strong>Why it failed:</strong> Requires manual curation, feels manufactured, creates moderation burden.</p>
+      <h3>iteration 1: "curator notes"</h3>
+      <p>ask artists to add notes to their playlists. nope. nobody does this. feels like work.</p>
 
-      <h3>Iteration 2: "Comments on Playlists"</h3>
-      <p><strong>Why it failed:</strong> Heavy moderation burden, risks fan conflicts, breaks Spotify's listening-focused culture.</p>
+      <h3>iteration 2: "artist comments"</h3>
+      <p>let them comment on tracks or playlists. sounds cool. but then you need moderation, tokens, community management. spotify doesn't want that headache. fans would fight. it breaks the whole vibe of just listening.</p>
 
-      <h3>Iteration 3: "In Rotation"</h3>
-      <p><strong>Why it works:</strong> Auto-generated from listening history, low effort, high autonomy.</p>
+      <h3>iteration 3: "in rotation"</h3>
+      <p>just... show what they've been playing. algorithmic. automatic. they can hide stuff if it's embarrassing. that's it.</p>
 
       <table>
         <tr>
-          <th>Constraint</th>
+          <th>Problem</th>
           <th>Solution</th>
         </tr>
         <tr>
-          <td>Artist doesn't want to curate</td>
-          <td>Algorithmic selection from listening history</td>
+          <td>artists won't curate</td>
+          <td>the algorithm does it for them</td>
         </tr>
         <tr>
-          <td>Must feel authentic</td>
-          <td>Shows actual plays, not PR picks</td>
+          <td>it has to feel real</td>
+          <td>show real plays, not what their label wants them to listen to</td>
         </tr>
         <tr>
-          <td>Avoid moderation burden</td>
-          <td>No community features, just tracks</td>
+          <td>spotify doesn't want to moderate</td>
+          <td>no comments, no ratings, no community. just tracks.</td>
         </tr>
         <tr>
-          <td>Low maintenance</td>
-          <td>Auto-refresh weekly</td>
+          <td>keep it simple</td>
+          <td>auto-updates every week</td>
         </tr>
         <tr>
-          <td>Artist autonomy</td>
-          <td>Toggle on/off, blacklist, pause</td>
+          <td>but they need control</td>
+          <td>toggle it on/off, hide songs that are embarrassing, pause it if they want</td>
         </tr>
       </table>
     </section>
 
     <section>
-      <h2>Solution</h2>
+      <h2>How It Works</h2>
 
-      <h3>Artist Experience</h3>
+      <h3>for artists</h3>
       <ul>
-        <li>Algorithm generates 3-5 tracks from past 30 days</li>
-        <li>Notification: "We created an In Rotation for you. Customize or publish?"</li>
-        <li>Can toggle on/off, blacklist tracks, pause temporarily</li>
-        <li>Optional 1-line context</li>
-        <li>Auto-refresh weekly</li>
+        <li>spotify picks 3-5 songs from what you've actually been playing the past month</li>
+        <li>you get a notification: "ready to share your in rotation?"</li>
+        <li>you can hide songs if they're weird or embarrassing, add a one-line blurb if you want, or just publish it as-is</li>
+        <li>it updates every week automatically</li>
+        <li>you can turn it off whenever</li>
       </ul>
 
-      <h3>Fan Experience</h3>
-      <p>Small modal showing 3-5 tracks with "Updated X days ago" timestamp. Placement: artist profile, underneath recent releases.</p>
+      <h3>for fans</h3>
+      <p>on an artist's profile, there's a small section showing their 3-5 current songs. it says when it was updated. click through to listen.</p>
     </section>
 
     <section>
-      <h2>Trade-offs</h2>
+      <h2>Why These Choices</h2>
       <table>
         <tr>
-          <th>Trade-off</th>
-          <th>Decision</th>
+          <th>What We Could Do</th>
+          <th>What We Actually Did</th>
         </tr>
         <tr>
-          <td>Algorithm vs. Control</td>
-          <td>Default algorithmic, artists can blacklist</td>
+          <td>let artists fully control what shows</td>
+          <td>algorithm picks, artists can hide what's weird</td>
         </tr>
         <tr>
-          <td>Frequency</td>
-          <td>Weekly refresh from 30-day history</td>
+          <td>update daily or monthly or whenever</td>
+          <td>every week feels right. frequent enough to stay fresh, not so often it feels like overkill</td>
         </tr>
         <tr>
-          <td>Context</td>
-          <td>Optional single-line comment</td>
+          <td>require artists to write descriptions</td>
+          <td>optional one-liner. no pressure.</td>
         </tr>
         <tr>
-          <td>Scale</td>
-          <td>No community/comments/rating</td>
+          <td>add ratings, comments, community stuff</td>
+          <td>nope. just the tracks. keep it clean.</td>
         </tr>
       </table>
     </section>
 
     <section>
-      <h2>Outcomes</h2>
-      <p><strong>Hypothetical Metrics:</strong></p>
+      <h2>What This Would Look Like</h2>
       <ul>
-        <li>Artist opt-in rate: 60%+ (low friction = high adoption)</li>
-        <li>Feature publish rate: 85%+ (pre-filled = fewer drop-offs)</li>
-        <li>Fan engagement: +15% on In Rotation tracks</li>
-        <li>Toggle-off rate: &lt;10% (if high, indicates friction)</li>
+        <li>60%+ of artists turn this on (low lift = people actually use it)</li>
+        <li>85%+ publish without editing (the default is good enough)</li>
+        <li>fans click on in rotation tracks 15% more than average</li>
+        <li>less than 10% turn it off (if more do, it means we made it annoying)</li>
       </ul>
     </section>
 
     <section>
-      <h2>Learnings</h2>
+      <h2>What I Learned</h2>
       <ul>
-        <li><strong>Constraints enable innovation:</strong> "Artists won't curate" forced better design.</li>
-        <li><strong>Understand motivation:</strong> Artists want authentic signals, not curation effort.</li>
-        <li><strong>Operational thinking:</strong> Rejecting community features cut moderation complexity 80%.</li>
-        <li><strong>Defaults matter:</strong> Auto-generation turned niche feature into 60%+ adoption.</li>
-        <li><strong>Simplicity feels genuine:</strong> Showing actual listening beats curated playlists AND requires less effort.</li>
+        <li><strong>you can design around what people won't do.</strong> "artists won't curate" sounds like a problem. it's actually the best design constraint. it forced the best solution.</li>
+        <li><strong>authenticity is valuable.</strong> fans don't want to see what an artist's label thinks they should listen to. they want to see what they actually listen to. it's more interesting and it requires way less work.</li>
+        <li><strong>moderation is expensive.</strong> adding comments or ratings sounds cool, but then you need to manage it. by keeping it simple (just tracks), you avoid thousands of dollars in infrastructure and people.</li>
+        <li><strong>defaults win.</strong> if something is automatic and good by default, most people won't touch it. you can turn 10% adoption into 60% by pre-filling the feature and making it auto-publish-ready.</li>
+        <li><strong>simplicity looks better.</strong> showing someone's actual listening feels more genuine than a curated playlist. AND it's easier to build.</li>
       </ul>
     </section>
 
     <section>
-      <h2>Enterprise Design Principles</h2>
-      <p>This approach applies to platforms like Amazon Benefits:</p>
+      <h2>Why This Portfolio Piece Matters</h2>
+      <p>this isn't just spotify stuff. the logic applies everywhere—especially in enterprise design, like benefits platforms (hello amazon):</p>
       <ul>
-        <li>Dual-user thinking (artist + fan mirrors employee + administrator)</li>
-        <li>Constraint-aware design (real operational limitations shape better UX)</li>
-        <li>Strategic simplification (best solutions are invisible)</li>
-        <li>Autonomy matters (users adopt features where they feel in control)</li>
-        <li>Measurement mindset (built with metrics in mind)</li>
+        <li><strong>dual-user thinking:</strong> the artist and fan both need something different. understanding both sides makes a better product.</li>
+        <li><strong>constraints are gifts:</strong> "artists won't curate" or "why would an employee spend 10 minutes filling out a form" aren't obstacles. they point you toward better design.</li>
+        <li><strong>the best UX is invisible:</strong> you shouldn't have to think about what's happening. it just works.</li>
+        <li><strong>autonomy drives adoption:</strong> people use things more when they feel in control. even a small blacklist is better than nothing.</li>
+        <li><strong>measure what matters.</strong> if you're designing for adoption, adoption is the metric that matters. build for it from day one.</li>
       </ul>
     </section>
 
